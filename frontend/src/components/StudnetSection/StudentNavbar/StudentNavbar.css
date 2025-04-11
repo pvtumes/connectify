@@ -1,0 +1,257 @@
+/* Main Navbar Styles */
+.sn-navbar {
+    background: linear-gradient(135deg, #3052A0 0%, #7091E6 100%);
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 1000;
+}
+
+.sn-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.sn-logo-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.sn-logo-img {
+    height: 40px;
+    margin-right: 12px;
+}
+
+.sn-logo-text {
+    color: #EDE8F5;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.sn-nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.sn-nav-item {
+    position: relative;
+    margin-left: 1.2rem;
+}
+
+.sn-nav-link {
+    color: #EDE8F5;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 1.5rem 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.sn-nav-icon {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+.sn-nav-link span {
+    transition: all 0.3s ease;
+}
+
+.sn-hover-line {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: #EDE8F5;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 2px;
+}
+
+.sn-nav-link:hover .sn-hover-line {
+    width: 80%;
+    background-color: #1a3a7a;
+}
+
+.sn-nav-link:hover {
+    color: #fff;
+}
+
+.sn-nav-link:hover span {
+    transform: translateY(-2px);
+}
+
+/* Profile Styles */
+.sn-profile-item {
+    margin-left: 2rem;
+}
+
+.sn-profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.sn-profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+    border: 2px solid #EDE8F5;
+    transition: all 0.3s ease;
+}
+
+.sn-profile-item:hover .sn-profile-pic {
+    border-color: #1a3a7a;
+    transform: scale(1.1);
+}
+
+/* Dropdown Styles */
+.sn-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3052A0;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0.8rem 0;
+    min-width: 200px;
+    z-index: 1000;
+    animation: sn-fadeIn 0.3s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sn-has-dropdown:hover .sn-dropdown-menu {
+    display: block;
+}
+
+.sn-dropdown-item {
+    color: #EDE8F5;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    position: relative;
+    text-align: center;
+}
+
+.sn-dropdown-line {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #1a3a7a;
+    transition: width 0.3s ease;
+}
+
+.sn-dropdown-item:hover {
+    background-color: rgba(26, 58, 122, 0.3);
+    color: #fff;
+}
+
+.sn-dropdown-item:hover .sn-dropdown-line {
+    width: 60%;
+}
+
+/* Animation */
+@keyframes sn-fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .sn-nav-container {
+        padding: 0 1rem;
+    }
+
+    .sn-nav-item {
+        margin-left: 0.8rem;
+    }
+
+    .sn-nav-link {
+        padding: 1.5rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .sn-logo-text {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sn-nav-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .sn-logo-container {
+        padding: 0.5rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .sn-nav-links {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .sn-nav-item {
+        margin: 0;
+    }
+
+    .sn-dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        transform: none;
+        left: auto;
+        margin-top: 0.5rem;
+    }
+
+    .sn-profile-item {
+        margin-left: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

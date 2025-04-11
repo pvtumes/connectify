@@ -1,0 +1,255 @@
+:root {
+    --primary-color: #3a86ff;
+    --secondary-color: #8338ec;
+    --text-dark: #2b2d42;
+    --text-light: #8d99ae;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --accent-color: #ff006e;
+    --transition: all 0.3s ease;
+}
+
+.trending-container {
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    width: 100%;
+    /* Take full width of parent */
+    margin: 0 auto;
+    transition: var(--transition);
+}
+
+.trending-container:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.trending-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.trending-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.trending-icon {
+    color: var(--accent-color);
+}
+
+.trends-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: var(--bg-light);
+    cursor: pointer;
+    transition: var(--transition);
+    animation: slide-in 0.5s ease forwards;
+}
+
+.trend-item:hover {
+    transform: translateY(-3px);
+    background-color: #f0f2f5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.trend-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.trend-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.trend-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.trend-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.trend-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.trend-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.hash-icon {
+    color: var(--primary-color);
+}
+
+.trend-posts {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.fire-icon {
+    color: var(--accent-color);
+}
+
+.trend-description {
+    background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.description-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.description-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: var(--transition);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-dark);
+}
+
+.trend-description p {
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.trend-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.explore-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    width: 100%;
+    justify-content: center;
+}
+
+.explore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+}
+
+/* Animations */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .trending-container {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .trend-item {
+        padding: 12px;
+    }
+
+    .trending-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .trend-tag {
+        font-size: 0.9rem;
+    }
+}
+
+.flame-icon {
+    color: var(--accent-color);
+}

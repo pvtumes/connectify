@@ -1,0 +1,22 @@
+@import "tailwindcss";
+body {
+    background: linear-gradient(135deg, #0f0f20 0%, #1a1a35 100%);
+    color: white;
+    /* Ensures text visibility */
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    /* Choose a modern font */
+}
+.box-shadow {
+    box-shadow: 0px 0px 15px rgba(130, 88, 245, 0.6);
+    /* Purple glow effect */
+}
+
+#root,
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}

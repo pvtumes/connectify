@@ -1,0 +1,50 @@
+/* Main container for the whole section */
+.student-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 50px;
+    /* space for fixed navbar — adjust if your navbar is taller */
+    box-sizing: border-box;
+    background-color: #f5f7fa;
+    /* optional: light background */
+}
+
+/* Fixed navbar wrapper */
+.keepsteady {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: transparent;
+    /* assuming navbar already has its background */
+}
+
+/* Content section below navbar */
+.student-home {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .student-section {
+        padding-top: 100px;
+        /* increase top padding slightly for mobile navbar spacing */
+    }
+
+    .student-home {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .student-section {
+        padding-top: 110px;
+    }
+
+    .student-home {
+        padding: 12px;
+    }
+}

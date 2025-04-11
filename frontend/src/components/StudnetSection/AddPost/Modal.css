@@ -1,0 +1,104 @@
+/* Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Container */
+.modal-container {
+    background: white;
+    width: 450px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button (Always at Top Right) */
+.fixed-close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fixed-close-icon:hover {
+    color: black;
+}
+
+/* Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+/* Textarea */
+.modal-textarea {
+    width: 100%;
+    height: 100px;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+}
+
+/* Footer Icons */
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+    margin-right: 10px;
+    transition: color 0.2s;
+}
+
+.icon:hover {
+    color: black;
+}
+
+.hidden-input {
+    display: none;
+}
+
+/* Post Button */
+.post-button {
+    background: gray;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background 0.3s;
+}
+
+.post-button.active {
+    background: blue;
+    cursor: pointer;
+}
+
+.post-button.active:hover {
+    background: darkblue;
+}

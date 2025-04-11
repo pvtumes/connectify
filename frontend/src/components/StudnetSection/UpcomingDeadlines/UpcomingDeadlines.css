@@ -1,0 +1,259 @@
+:root {
+    --primary-color: #4361ee;
+    --primary-light: #edf2ff;
+    --secondary-color: #3a0ca3;
+    --text-dark: #2b2d42;
+    --text-light: #6c757d;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --border-color: #e9ecef;
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+.deadlines-container {
+    width: 100%;
+    background-color: var(--bg-white);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.deadlines-container:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.deadlines-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.deadlines-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.header-icon {
+    color: var(--primary-color);
+}
+
+.view-all-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: 400;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.view-all-btn:hover {
+    background-color: var(--primary-light);
+}
+
+.deadlines-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.deadline-item {
+    background-color: var(--bg-white);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+}
+
+.deadline-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.deadline-item.expanded {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 16px rgba(67, 97, 238, 0.15);
+}
+
+.deadline-item.completed {
+    opacity: 0.7;
+    background-color: var(--bg-light);
+}
+
+.deadline-item.completed .deadline-title {
+    text-decoration: line-through;
+}
+
+.deadline-item.completed .deadline-time {
+    color: var(--text-light);
+}
+
+.deadline-item.high {
+    border-left: 4px solid var(--danger-color);
+}
+
+.deadline-item.medium {
+    border-left: 4px solid var(--warning-color);
+}
+
+.deadline-item.low {
+    border-left: 4px solid var(--success-color);
+}
+
+.deadline-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.complete-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid var(--border-color);
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.complete-checkbox:hover {
+    border-color: var(--primary-color);
+}
+
+.complete-checkbox.checked {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+.deadline-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.deadline-title {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.deadline-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.priority-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--danger-color);
+    background-color: rgba(231, 76, 60, 0.1);
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.deadline-details {
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px dashed var(--border-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.deadline-details p {
+    margin: 0 0 16px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-size: 0.5rem;
+}
+
+.deadline-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.action-btn.reminder {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.action-btn.delegate {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+}
+
+.action-btn.details {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--success-color);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .deadlines-container {
+        padding: 16px;
+    }
+
+    .deadline-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+}

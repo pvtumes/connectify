@@ -1,0 +1,72 @@
+.connectify-footer {
+    background-color:transparent;
+    padding: 16px 0;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.footer-group {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    height: 30px;
+    width: auto;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #666666;
+    white-space: nowrap;
+}
+
+.footer-link {
+    font-size: 12px;
+    color: #666666;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 4px 0;
+}
+
+.footer-link:hover {
+    color: #0a66c2;
+    text-decoration: underline;
+}
+
+.footer-link-with-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dropdown-icon {
+    font-size: 10px;
+    color: #666666;
+    margin-top: -1px;
+}
+
+@media (max-width: 768px) {
+    .footer-flex-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-group {
+        gap: 12px;
+    }
+}
