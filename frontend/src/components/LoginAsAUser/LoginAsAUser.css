@@ -1,0 +1,9 @@
+.student-section{
+    display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-top: 50px;
+        /* space for fixed navbar — adjust if your navbar is taller */
+        box-sizing: border-box;
+        background-color:#f3f2ef;;
+}

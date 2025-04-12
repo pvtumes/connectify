@@ -8,17 +8,15 @@ import {
   FaCheck,
   FaDownload,
   FaCopy,
-  FaHistory,
-  FaLightbulb,
   FaMoon,
   FaSun,
   FaPlus,
   FaMinus,
   FaUndo,
 } from "react-icons/fa";
-import "./CodingPlatForm.css";
+import "./CodingPlatform.css";
 
-// Hardcoded data
+// Hardcoded problem data (aligned with ConnectifyPlatform)
 const HARDCODED_PROBLEMS = [
   {
     id: 1,
@@ -44,7 +42,7 @@ const HARDCODED_PROBLEMS = [
         explanation: "Because nums[1] + nums[2] == 6, we return [1, 2].",
       },
     ],
-    companies: ["Amazon", "Google", "Microsoft"],
+    companies: ["Amazon", "Google", "Meta"],
     topics: ["Array", "Hash Table"],
     testCases: [
       { input: "[2,7,11,15]\n9", expected: "[0,1]" },
@@ -59,34 +57,134 @@ const HARDCODED_PROBLEMS = [
   },
   {
     id: 2,
-    title: "Reverse String",
-    difficulty: "Easy",
+    title: "Add Two Numbers",
+    difficulty: "Medium",
     description:
-      "Write a function that reverses a string. The input string is given as an array of characters s.",
+      "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.",
     constraints: [
-      "1 <= s.length <= 10^5",
-      "s[i] is a printable ascii character.",
+      "The number of nodes in each linked list is in the range [1, 100].",
+      "0 <= Node.val <= 9",
+      "It is guaranteed that the list represents a number that does not have leading zeros.",
     ],
     examples: [
       {
-        input: 's = ["h","e","l","l","o"]',
-        output: '["o","l","l","e","h"]',
+        input: "l1 = [2,4,3], l2 = [5,6,4]",
+        output: "[7,0,8]",
+        explanation: "342 + 465 = 807.",
       },
     ],
-    companies: ["Facebook", "Apple"],
-    topics: ["String", "Two Pointers"],
+    companies: ["Microsoft", "Meta"],
+    topics: ["Linked List", "Math"],
+    testCases: [{ input: "[2,4,3]\n[5,6,4]", expected: "[7,0,8]" }],
+    starterCode: {
+      python: "def addTwoNumbers(l1, l2):\n    # Your code here\n    pass",
+      javascript: "function addTwoNumbers(l1, l2) {\n    // Your code here\n};",
+      java: "class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        // Your code here\n    }\n}",
+      cpp: "class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        // Your code here\n    }\n};",
+    },
+  },
+  {
+    id: 3,
+    title: "Longest Substring Without Repeating Characters",
+    difficulty: "Medium",
+    description:
+      "Given a string s, find the length of the longest substring without repeating characters.",
+    constraints: [
+      "0 <= s.length <= 5 * 10^4",
+      "s consists of English letters, digits, symbols and spaces.",
+    ],
+    examples: [
+      {
+        input: 's = "abcabcbb"',
+        output: "3",
+        explanation: 'The answer is "abc", with the length of 3.',
+      },
+    ],
+    companies: ["Amazon", "Google", "Microsoft"],
+    topics: ["Hash Table", "String", "Sliding Window"],
     testCases: [
-      { input: '["h","e","l","l","o"]', expected: '["o","l","l","e","h"]' },
+      { input: '"abcabcbb"', expected: "3" },
+      { input: '"bbbbb"', expected: "1" },
     ],
     starterCode: {
-      python: "def reverseString(s):\n    # Your code here\n    pass",
-      javascript: "function reverseString(s) {\n    // Your code here\n};",
-      java: "class Solution {\n    public void reverseString(char[] s) {\n        // Your code here\n    }\n}",
-      cpp: "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        // Your code here\n    }\n};",
+      python:
+        "def lengthOfLongestSubstring(s):\n    # Your code here\n    pass",
+      javascript:
+        "function lengthOfLongestSubstring(s) {\n    // Your code here\n};",
+      java: "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        // Your code here\n    }\n}",
+      cpp: "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        // Your code here\n    }\n};",
+    },
+  },
+  {
+    id: 4,
+    title: "Median of Two Sorted Arrays",
+    difficulty: "Hard",
+    description:
+      "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
+    constraints: [
+      "nums1.length == m",
+      "nums2.length == n",
+      "0 <= m <= 1000",
+      "0 <= n <= 1000",
+      "1 <= m + n <= 2000",
+      "-10^6 <= nums1[i], nums2[i] <= 10^6",
+    ],
+    examples: [
+      {
+        input: "nums1 = [1,3], nums2 = [2]",
+        output: "2.00000",
+        explanation: "merged array = [1,2,3] and median is 2.",
+      },
+    ],
+    companies: ["Amazon", "Apple", "Microsoft"],
+    topics: ["Array", "Binary Search", "Divide and Conquer"],
+    testCases: [
+      { input: "[1,3]\n[2]", expected: "2.00000" },
+      { input: "[1,2]\n[3,4]", expected: "2.50000" },
+    ],
+    starterCode: {
+      python:
+        "def findMedianSortedArrays(nums1, nums2):\n    # Your code here\n    pass",
+      javascript:
+        "function findMedianSortedArrays(nums1, nums2) {\n    // Your code here\n};",
+      java: "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        // Your code here\n    }\n}",
+      cpp: "class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        // Your code here\n    }\n};",
+    },
+  },
+  {
+    id: 5,
+    title: "Reverse Integer",
+    difficulty: "Medium",
+    description:
+      "Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1], then return 0.",
+    constraints: ["-2^31 <= x <= 2^31 - 1"],
+    examples: [
+      {
+        input: "x = 123",
+        output: "321",
+      },
+      {
+        input: "x = -123",
+        output: "-321",
+      },
+    ],
+    companies: ["Bloomberg", "Apple", "Google"],
+    topics: ["Math"],
+    testCases: [
+      { input: "123", expected: "321" },
+      { input: "-123", expected: "-321" },
+      { input: "120", expected: "21" },
+    ],
+    starterCode: {
+      python: "def reverse(x):\n    # Your code here\n    pass",
+      javascript: "function reverse(x) {\n    // Your code here\n};",
+      java: "class Solution {\n    public int reverse(int x) {\n        // Your code here\n    }\n}",
+      cpp: "class Solution {\npublic:\n    int reverse(int x) {\n        // Your code here\n    }\n};",
     },
   },
 ];
 
+// Hardcoded submissions
 const HARDCODED_SUBMISSIONS = [
   {
     id: 1,
@@ -102,32 +200,22 @@ const HARDCODED_SUBMISSIONS = [
       { input: "[2,7,11,15]\n9", output: "[0,1]", passed: true },
       { input: "[3,2,4]\n6", output: "[1,2]", passed: true },
     ],
-    analytics: {
-      runtimePercentile: 85,
-      memoryPercentile: 72,
-      timeComplexity: "O(n)",
-      spaceComplexity: "O(n)",
-    },
   },
   {
     id: 2,
-    problemId: 1,
+    problemId: 2,
     userId: 1,
-    code: "def twoSum(nums, target):\n    for i in range(len(nums)):\n        for j in range(i+1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return [i, j]\n    return []",
-    language: "python",
-    status: "Time Limit Exceeded",
-    runtime: 2100,
-    memory: 13.8,
-    timestamp: "2023-05-14T15:45:00Z",
-    testCases: [
-      { input: "[2,7,11,15]\n9", output: "[0,1]", passed: true },
-      { input: "[3,2,4]\n6", output: "[1,2]", passed: false },
-    ],
+    code: "function addTwoNumbers(l1, l2) {\n    let dummy = new ListNode(0);\n    let curr = dummy;\n    let carry = 0;\n    \n    while (l1 || l2 || carry) {\n        let sum = (l1?.val || 0) + (l2?.val || 0) + carry;\n        carry = Math.floor(sum / 10);\n        curr.next = new ListNode(sum % 10);\n        curr = curr.next;\n        l1 = l1?.next;\n        l2 = l2?.next;\n    }\n    \n    return dummy.next;\n};",
+    language: "javascript",
+    status: "Accepted",
+    runtime: 120,
+    memory: 45.2,
+    timestamp: "2023-05-16T14:45:00Z",
+    testCases: [{ input: "[2,4,3]\n[5,6,4]", output: "[7,0,8]", passed: true }],
   },
 ];
 
-const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
-  // State management
+const CodingPlatform = ({ problemId, userId, onClose }) => {
   const [problem, setProblem] = useState(null);
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("python");
@@ -136,17 +224,12 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
   const [testCases, setTestCases] = useState([]);
-  const [customTestCase, setCustomTestCase] = useState("");
   const [executionResults, setExecutionResults] = useState(null);
   const [submissions, setSubmissions] = useState([]);
   const [expandedExamples, setExpandedExamples] = useState({});
-  const [editorLocked, setEditorLocked] = useState(false);
-  const [testCaseView, setTestCaseView] = useState("split");
 
-  // Fetch problem data on load
   useEffect(() => {
     if (problemId) {
-      // Use hardcoded data instead of API call
       const foundProblem = HARDCODED_PROBLEMS.find((p) => p.id === problemId);
       if (foundProblem) {
         setProblem(foundProblem);
@@ -154,7 +237,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
         setCode(foundProblem.starterCode[language] || "// Start coding here");
       }
 
-      // Use hardcoded submissions
       const userSubmissions = HARDCODED_SUBMISSIONS.filter(
         (s) => s.problemId === problemId && s.userId === userId
       );
@@ -163,9 +245,7 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
   }, [problemId, userId, language]);
 
   const handleCodeChange = (newValue) => {
-    if (!editorLocked) {
-      setCode(newValue);
-    }
+    setCode(newValue);
   };
 
   const toggleExample = (index) => {
@@ -177,36 +257,25 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
 
   const runCode = async () => {
     setIsRunning(true);
-
-    // Simulate API call with timeout
     setTimeout(() => {
-      // Mock response
       const mockResults = {
         status: "Executed",
         consoleOutput: "Running test cases...\nAll test cases passed!",
-        testCases: problem.testCases.map((testCase, index) => ({
+        testCases: problem.testCases.map((testCase) => ({
           input: testCase.input,
           expected: testCase.expected,
-          output: testCase.expected, // Mocking that all tests pass
+          output: testCase.expected,
           passed: true,
         })),
-        analytics: {
-          runtimePercentile: Math.floor(Math.random() * 100),
-          memoryPercentile: Math.floor(Math.random() * 100),
-        },
       };
-
       setExecutionResults(mockResults);
       setIsRunning(false);
-    }, 1500);
+    }, 1000);
   };
 
   const submitCode = async () => {
     setIsSubmitting(true);
-
-    // Simulate API call with timeout
     setTimeout(() => {
-      // Create a mock submission
       const newSubmission = {
         id: submissions.length + 1,
         problemId: problem.id,
@@ -217,40 +286,17 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
         runtime: Math.floor(Math.random() * 100) + 10,
         memory: Math.random() * 10 + 10,
         timestamp: new Date().toISOString(),
-        testCases: problem.testCases.map((testCase, index) => ({
+        testCases: problem.testCases.map((testCase) => ({
           input: testCase.input,
           expected: testCase.expected,
           output: Math.random() > 0.3 ? testCase.expected : "wrong output",
           passed: Math.random() > 0.3,
         })),
-        analytics: {
-          runtimePercentile: Math.floor(Math.random() * 100),
-          memoryPercentile: Math.floor(Math.random() * 100),
-          timeComplexity: "O(n)",
-          spaceComplexity: "O(1)",
-        },
       };
-
       setExecutionResults(newSubmission);
       setSubmissions([newSubmission, ...submissions]);
       setIsSubmitting(false);
-    }, 2000);
-  };
-
-  const addTestCase = () => {
-    setTestCases([...testCases, { input: "", expected: "", isCustom: true }]);
-  };
-
-  const removeTestCase = (index) => {
-    const newTestCases = [...testCases];
-    newTestCases.splice(index, 1);
-    setTestCases(newTestCases);
-  };
-
-  const updateTestCase = (index, field, value) => {
-    const newTestCases = [...testCases];
-    newTestCases[index][field] = value;
-    setTestCases(newTestCases);
+    }, 1000);
   };
 
   const resetCode = () => {
@@ -261,7 +307,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
 
   const copyCode = () => {
     navigator.clipboard.writeText(code);
-    // Add toast notification here
   };
 
   const downloadCode = () => {
@@ -273,7 +318,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
         java: ".java",
         cpp: ".cpp",
       }[language] || ".txt";
-
     const file = new Blob([code], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
     element.download = `solution${fileExtension}`;
@@ -289,7 +333,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
   if (!problem) {
     return (
       <div className="coding-platform-loader">
-        <div className="loader-spinner"></div>
         <p>Loading problem...</p>
       </div>
     );
@@ -297,31 +340,16 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
 
   return (
     <div className="coding-platform-container" data-theme={theme}>
-      {/* Top Navigation Bar */}
       <div className="coding-platform-navbar">
         <div className="navbar-left">
+          <button className="back-button" onClick={onClose}>
+            ← Back to Problems
+          </button>
           <h1 className="platform-title">CodeMaster</h1>
         </div>
-        <div className="navbar-center">
-          <div className="streak-tracker">
-            <span className="streak-icon">🔥 7</span>
-            <span className="streak-text">day streak</span>
-          </div>
-        </div>
         <div className="navbar-right">
-          <div className="navbar-user-info">
-            <img
-              src={`/avatars/${userId}.jpg`}
-              alt="User Avatar"
-              className="user-avatar"
-            />
-            <span className="username">JohnDoe</span>
-          </div>
-          <button className="theme-toggle-btn" onClick={toggleTheme}>
-            {theme === "vs-dark" ? <FaSun /> : <FaMoon />}
-          </button>
           <select
-            className="language-selector global"
+            className="language-selector"
             onChange={(e) => setLanguage(e.target.value)}
             value={language}
           >
@@ -330,12 +358,13 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
             <option value="java">Java</option>
             <option value="cpp">C++</option>
           </select>
+          <button className="theme-toggle-btn" onClick={toggleTheme}>
+            {theme === "vs-dark" ? <FaSun /> : <FaMoon />}
+          </button>
         </div>
       </div>
 
-      {/* Main Content Area */}
       <div className="coding-platform-main">
-        {/* Problem Description Sidebar */}
         <div className="problem-sidebar">
           <div className="problem-header">
             <h2 className="problem-title">{problem.title}</h2>
@@ -344,25 +373,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
             >
               {problem.difficulty}
             </span>
-          </div>
-
-          <div className="problem-tags">
-            {problem.companies && (
-              <div className="company-tags">
-                {problem.companies.map((company, index) => (
-                  <span key={`company-${index}`} className="tag company-tag">
-                    {company}
-                  </span>
-                ))}
-              </div>
-            )}
-            <div className="topic-tags">
-              {problem.topics.map((topic, index) => (
-                <span key={`topic-${index}`} className="tag topic-tag">
-                  {topic}
-                </span>
-              ))}
-            </div>
           </div>
 
           <Tabs
@@ -374,13 +384,11 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
             <TabList className="problem-tabs">
               <Tab className="problem-tab">Description</Tab>
               <Tab className="problem-tab">Discussion</Tab>
-              <Tab className="problem-tab">Editorial</Tab>
             </TabList>
 
             <TabPanel className="tab-description">
               <div className="problem-description">
                 <p>{problem.description}</p>
-
                 <div className="problem-constraints">
                   <h3>Constraints:</h3>
                   <ul>
@@ -389,7 +397,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
                     ))}
                   </ul>
                 </div>
-
                 <div className="problem-examples">
                   <h3>Examples:</h3>
                   {problem.examples.map((example, index) => (
@@ -428,35 +435,13 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
                   ))}
                 </div>
               </div>
-              <div className="description-actions">
-                <button
-                  className="copy-btn"
-                  onClick={() =>
-                    navigator.clipboard.writeText(problem.description)
-                  }
-                >
-                  <FaCopy /> Copy
-                </button>
-              </div>
             </TabPanel>
-
             <TabPanel className="tab-discussion">
-              <div className="discussions-container">
-                <p>Join the discussion about this problem...</p>
-                {/* Discussion content would be loaded here */}
-              </div>
-            </TabPanel>
-
-            <TabPanel className="tab-editorial">
-              <div className="editorial-container">
-                <p>Official solution and approach...</p>
-                {/* Editorial content would be loaded here */}
-              </div>
+              <p>Discussion content goes here...</p>
             </TabPanel>
           </Tabs>
         </div>
 
-        {/* Code Editor Pane */}
         <Resizable
           className="editor-pane-container"
           defaultSize={{ width: "50%", height: "100%" }}
@@ -476,40 +461,14 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
               <option value="cpp">C++</option>
             </select>
             <div className="editor-actions">
-              <button
-                className="editor-action-btn"
-                onClick={resetCode}
-                title="Reset Code"
-              >
+              <button className="editor-action-btn" onClick={resetCode}>
                 <FaUndo />
               </button>
-              <button
-                className="editor-action-btn"
-                onClick={copyCode}
-                title="Copy Code"
-              >
+              <button className="editor-action-btn" onClick={copyCode}>
                 <FaCopy />
               </button>
-              <button
-                className="editor-action-btn"
-                onClick={downloadCode}
-                title="Download Code"
-              >
+              <button className="editor-action-btn" onClick={downloadCode}>
                 <FaDownload />
-              </button>
-              <button
-                className="editor-action-btn"
-                onClick={toggleTheme}
-                title="Toggle Theme"
-              >
-                {theme === "vs-dark" ? <FaSun /> : <FaMoon />}
-              </button>
-              <button
-                className={`editor-action-btn ${editorLocked ? "active" : ""}`}
-                onClick={() => setEditorLocked(!editorLocked)}
-                title={editorLocked ? "Unlock Editor" : "Lock Editor"}
-              >
-                {editorLocked ? "🔒" : "🔓"}
               </button>
             </div>
           </div>
@@ -517,20 +476,16 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
           <div className="monaco-editor-wrapper">
             <MonacoEditor
               width="100%"
-              height="calc(100% - 96px)" // Adjust based on header and controls height
+              height="calc(100% - 96px)"
               language={language}
               theme={theme}
               value={code}
               onChange={handleCodeChange}
               options={{
                 selectOnLineNumbers: true,
-                roundedSelection: false,
-                readOnly: editorLocked,
-                cursorStyle: "line",
+                readOnly: false,
                 automaticLayout: true,
-                folding: true,
-                lineNumbers: "on",
-                minimap: { enabled: true },
+                minimap: { enabled: false },
               }}
             />
           </div>
@@ -542,7 +497,6 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
               disabled={isRunning || isSubmitting}
             >
               <FaPlay /> Run Code
-              {isRunning && <div className="btn-spinner"></div>}
             </button>
             <button
               className={`submit-btn ${isSubmitting ? "submitting" : ""}`}
@@ -550,63 +504,27 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
               disabled={isRunning || isSubmitting}
             >
               <FaCheck /> Submit
-              {isSubmitting && <div className="btn-spinner"></div>}
             </button>
           </div>
         </Resizable>
 
-        {/* Test Cases and Results Sidebar */}
         <div className="results-sidebar">
           <Tabs defaultIndex={0}>
             <TabList className="results-tabs">
               <Tab className="results-tab">Test Cases</Tab>
-              <Tab className="results-tab">Console</Tab>
               <Tab className="results-tab">Submissions</Tab>
-              <Tab className="results-tab">Analytics</Tab>
             </TabList>
 
             <TabPanel className="tab-test-cases">
-              <div className="test-cases-header">
-                <h3>Test Cases</h3>
-                <div className="test-cases-actions">
-                  <button
-                    className="view-toggle-btn"
-                    onClick={() =>
-                      setTestCaseView(
-                        testCaseView === "split" ? "tabbed" : "split"
-                      )
-                    }
-                  >
-                    Toggle View
-                  </button>
-                  <button className="add-test-case-btn" onClick={addTestCase}>
-                    <FaPlus />
-                  </button>
-                </div>
-              </div>
-
-              <div className={`test-cases-container view-${testCaseView}`}>
+              <div className="test-cases-container">
                 {testCases.map((testCase, index) => (
                   <div key={`test-case-${index}`} className="test-case-item">
-                    <div className="test-case-header">
-                      <h4>Case {index + 1}</h4>
-                      {testCase.isCustom && (
-                        <button
-                          className="remove-test-case-btn"
-                          onClick={() => removeTestCase(index)}
-                        >
-                          <FaMinus />
-                        </button>
-                      )}
-                    </div>
                     <div className="test-case-content">
                       <div className="test-case-input">
                         <label>Input:</label>
                         <textarea
                           value={testCase.input}
-                          onChange={(e) =>
-                            updateTestCase(index, "input", e.target.value)
-                          }
+                          readOnly
                           className="test-case-textarea"
                         />
                       </div>
@@ -614,13 +532,10 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
                         <label>Expected:</label>
                         <textarea
                           value={testCase.expected}
-                          onChange={(e) =>
-                            updateTestCase(index, "expected", e.target.value)
-                          }
+                          readOnly
                           className="test-case-textarea"
                         />
                       </div>
-
                       {executionResults &&
                         executionResults.testCases &&
                         executionResults.testCases[index] && (
@@ -648,152 +563,41 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
                   </div>
                 ))}
               </div>
-
-              <div className="custom-test-case">
-                <h4>Custom Input</h4>
-                <textarea
-                  value={customTestCase}
-                  onChange={(e) => setCustomTestCase(e.target.value)}
-                  className="custom-test-textarea"
-                  placeholder="Add your own test input here..."
-                />
-                <button
-                  className="run-custom-btn"
-                  onClick={() => {
-                    // Run with custom test case
-                    // Integration point
-                  }}
-                >
-                  Run Custom Input
-                </button>
-              </div>
-            </TabPanel>
-
-            <TabPanel className="tab-console">
-              <div className="console-output">
-                <h3>Console Output</h3>
-                <div className="console-content">
-                  {executionResults && executionResults.consoleOutput ? (
-                    <pre>{executionResults.consoleOutput}</pre>
-                  ) : (
-                    <p className="console-placeholder">
-                      Run your code to see output...
-                    </p>
-                  )}
-                </div>
-              </div>
             </TabPanel>
 
             <TabPanel className="tab-submissions">
               <div className="submissions-list">
                 <h3>Your Submissions</h3>
                 {submissions.length > 0 ? (
-                  <div className="submissions-container">
-                    {submissions.map((submission, index) => (
+                  submissions.map((submission, index) => (
+                    <div
+                      key={`submission-${index}`}
+                      className="submission-item"
+                    >
                       <div
-                        key={`submission-${index}`}
-                        className="submission-item"
+                        className={`submission-status ${submission.status.toLowerCase()}`}
                       >
-                        <div
-                          className={`submission-status ${submission.status.toLowerCase()}`}
-                        >
-                          {submission.status}
-                        </div>
-                        <div className="submission-details">
-                          <div className="submission-time">
-                            {new Date(submission.timestamp).toLocaleString()}
-                          </div>
-                          <div className="submission-metrics">
-                            <span className="runtime">
-                              Runtime: {submission.runtime}ms
-                            </span>
-                            <span className="memory">
-                              Memory: {submission.memory}MB
-                            </span>
-                          </div>
-                        </div>
-                        <button
-                          className="view-submission-btn"
-                          onClick={() => {
-                            // View this submission
-                            setCode(submission.code);
-                          }}
-                        >
-                          View
-                        </button>
+                        {submission.status}
                       </div>
-                    ))}
-                  </div>
+                      <div className="submission-details">
+                        <div className="submission-time">
+                          {new Date(submission.timestamp).toLocaleString()}
+                        </div>
+                        <div className="submission-metrics">
+                          <span>Runtime: {submission.runtime}ms</span>
+                          <span>Memory: {submission.memory}MB</span>
+                        </div>
+                      </div>
+                      <button
+                        className="view-submission-btn"
+                        onClick={() => setCode(submission.code)}
+                      >
+                        View
+                      </button>
+                    </div>
+                  ))
                 ) : (
-                  <p className="no-submissions">No submissions yet.</p>
-                )}
-              </div>
-            </TabPanel>
-
-            <TabPanel className="tab-analytics">
-              <div className="analytics-container">
-                <h3>Performance Analytics</h3>
-                {executionResults && executionResults.analytics ? (
-                  <div className="analytics-content">
-                    <div className="performance-chart">
-                      <h4>Runtime Distribution</h4>
-                      <div className="runtime-chart">
-                        <div
-                          className="runtime-bar"
-                          style={{
-                            width: `${executionResults.analytics.runtimePercentile}%`,
-                          }}
-                        >
-                          {executionResults.analytics.runtimePercentile}%
-                        </div>
-                      </div>
-                      <p>
-                        Beats {executionResults.analytics.runtimePercentile}% of{" "}
-                        {language} submissions
-                      </p>
-                    </div>
-
-                    <div className="performance-chart">
-                      <h4>Memory Distribution</h4>
-                      <div className="memory-chart">
-                        <div
-                          className="memory-bar"
-                          style={{
-                            width: `${executionResults.analytics.memoryPercentile}%`,
-                          }}
-                        >
-                          {executionResults.analytics.memoryPercentile}%
-                        </div>
-                      </div>
-                      <p>
-                        Beats {executionResults.analytics.memoryPercentile}% of{" "}
-                        {language} submissions
-                      </p>
-                    </div>
-
-                    <div className="complexity-analysis">
-                      <h4>Complexity Analysis</h4>
-                      <div className="complexity-item">
-                        <span>Time Complexity:</span>
-                        <span className="complexity-value">
-                          {executionResults.analytics.timeComplexity || "N/A"}
-                        </span>
-                      </div>
-                      <div className="complexity-item">
-                        <span>Space Complexity:</span>
-                        <span className="complexity-value">
-                          {executionResults.analytics.spaceComplexity || "N/A"}
-                        </span>
-                      </div>
-                      <div className="premium-tag">
-                        <FaLightbulb /> Premium Feature
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="no-analytics">
-                    Submit your solution to see performance analytics.
-                  </p>
+                  <p>No submissions yet.</p>
                 )}
               </div>
             </TabPanel>
@@ -803,4 +607,5 @@ const CodingPlatform = ({ problemId = 1, userId = 1 }) => {
     </div>
   );
 };
+
 export default CodingPlatform;

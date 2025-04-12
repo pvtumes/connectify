@@ -9,14 +9,17 @@ const ModalLoginSignup = ({ isOpen, onClose }) => {
   }
 
   return (
-    <div className="modal-overlay">
-      <button className="modal-close-icon" onClick={onClose}>
-        <FaTimes />
-      </button>
-      <div className="modal-content">
-        <LoginSignup />
+    <>
+  
+      <div className="modal-overlay">
+        <button className="modal-close-icon" onClick={onClose}>
+          <FaTimes />
+        </button>
+        <div className="modal-content">
+          <LoginSignup />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

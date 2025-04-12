@@ -1,44 +1,41 @@
 import "./App.css";
-// import CodingPlatform from "./components/CodingPlatform/CodingPlatform";
-// import ConnectifyCodingPlatfom from "./components/CodingPlatform/ConnectifyCodingPlatfom";
-// // import CourseDashboard from "./components/Courses/CourseDashBoard/CourseDashBoard";
-// import MainCourseFile from "./components/Courses/MainCourseFile";
-// import { CodingProvider } from "./components/CodingPlatform/CodingContext";
-
-// // import StudentSection from "./components/StudnetSection/StudentSection";
-
 import LoginAsUser from "./components/LoginAsAUser/LoginAsAUser";
-// import HomeSecionEvents from "./components/Events/HomeSecionEvents/HomeSecionEvents";
-// import NotifiCationSection from "./components/NotifiCationSection/NotifiCationSection";
-// import ProfileSection from "./components/ProfileSection/ProfileSection";
 import LandingPage from "./components/LandingPage/LandingPage"
 import StudentSection from "./components/StudnetSection/StudentSection";
-import EditProfileSectionModal from "./components/ProfileSection/EditProfileSectionModal";
+import ConnectifyCodingPlatfom from "./components/CodingPlatform/ConnectifyCodingPlatfom"
+import CodingPlatform from "./components/CodingPlatform/CodingPlatform";
+import HomeSecionEvents from "./components/Events/HomeSecionEvents/HomeSecionEvents";
+import EditProfile from "./components/ProfileSection/EditProfile"
+// import ProfileSection from "./components/ProfileSection/ProfileSection";
 
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ModalLoginSignup from "./components/LandingPage/ModalLoginSignup";
+import Navbar from "./components/LandingPage/Navbar";
+import MainCourseFile from "./components/Courses/MainCourseFile";
 
 function App() {
   return (
-    <>
-      {/* <Login */}
-      <LandingPage></LandingPage>
-      
-      {/* <MainCourseFile></MainCourseFile> */}
-      {/* <CourseDashboard></CourseDashboard> */}
-      {/* <StudentSection></StudentSection> */}
-      {/* <PostPreview></PostPreview> */}
-      {/* <CodingPlatform></CodingPlatform> */}
-      {/* <ProfileSection></ProfileSection>
-      <NotifiCationSection></NotifiCationSection>
-      <HomeSecionEvents></HomeSecionEvents>*/}
-      {/* <LoginAsUser></LoginAsUser> */}
-      {/* <StudentSection></StudentSection> */}
+    // <>
+    //   {/* <ProfileSection></ProfileSection> */}
+    //   {/* <EditProfile></EditProfile> */}
+    //   <LandingPage></LandingPage>
+    //   {/* <HomeSecionEvents></HomeSecionEvents> */}
+    //   <LoginAsUser></LoginAsUser>
+    //   {/* <ConnectifyCodingPlatfom></ConnectifyCodingPlatfom>
+    //   <CodingPlatform></CodingPlatform> */}
 
-      {/* <CodingProvider><ConnectifyCodingPlatfom></ConnectifyCodingPlatfom></CodingProvider> */}
-      {/* <CodingPlatform></CodingPlatform>
-      <ConnectifyCodingPlatfom></ConnectifyCodingPlatfom>  */}
-
-      <br></br>
-    </>
+    //   <br></br>
+    // </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<LoginAsUser />} />
+        {/*<Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </Router>
   );
 }
 

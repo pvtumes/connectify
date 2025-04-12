@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
+import ModalLoginSignup from "./ModalLoginSignup";
 
 const Home = () => {
+  // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Functions to open and close modal
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="connectify-home">
       {/* Hero Section */}
@@ -15,8 +23,12 @@ const Home = () => {
             showcasing your skills, and landing your dream job.
           </p>
           <div className="connectify-cta-buttons">
-            <button className="connectify-cta-primary">Get Started</button>
-            <button className="connectify-cta-secondary">Learn More</button>
+            <button className="connectify-cta-primary" onClick={openModal}>
+              Get Started
+            </button>
+            <a href="#benefits" className="connectify-cta-secondary">
+              Learn More
+            </a>
           </div>
         </div>
 
@@ -54,6 +66,9 @@ const Home = () => {
           <div className="connectify-logo">Apple</div> */}
         </div>
       </div>
+
+      {/* Modal Component */}
+      <ModalLoginSignup isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

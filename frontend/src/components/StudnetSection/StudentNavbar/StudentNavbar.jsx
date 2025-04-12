@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./StudentNavbar.css";
 import {
   FaHome,
@@ -82,7 +82,7 @@ const StudentNavbar = ({ onNavigate }) => {
             <a
               href="#"
               className="sn-nav-link"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => handleNavClick("notifications", e)}
             >
               <FaBell className="sn-nav-icon" />
               <span>Notifications</span>
@@ -108,7 +108,7 @@ const StudentNavbar = ({ onNavigate }) => {
             <a
               href="#"
               className="sn-nav-link"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => handleNavClick("profile", e)}
             >
               <div className="sn-profile-container">
                 <img

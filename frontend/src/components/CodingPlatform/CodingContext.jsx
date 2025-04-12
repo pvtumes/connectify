@@ -23,11 +23,6 @@ export const CodingProvider = ({ children }) => {
           output: "[0,1]",
           explanation: "Because nums[0] + nums[1] == 9, we return [0, 1].",
         },
-        {
-          input: "nums = [3,2,4], target = 6",
-          output: "[1,2]",
-          explanation: "Because nums[1] + nums[2] == 6, we return [1, 2].",
-        },
       ],
       companies: ["Amazon", "Google", "Microsoft"],
       topics: ["Array", "Hash Table"],
@@ -71,7 +66,38 @@ export const CodingProvider = ({ children }) => {
         cpp: "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        // Your code here\n    }\n};",
       },
     },
+    {
+      id: 3,
+      title: "Valid Parentheses",
+      difficulty: "Easy",
+      description:
+        "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+      constraints: ["1 <= s.length <= 10^4", "s consists of parentheses only."],
+      examples: [
+        {
+          input: 's = "()"',
+          output: "true",
+        },
+        {
+          input: 's = "(]"',
+          output: "false",
+        },
+      ],
+      companies: ["Amazon", "Google", "Bloomberg"],
+      topics: ["Stack", "String"],
+      testCases: [
+        { input: '"()"', expected: "true" },
+        { input: '"(]"', expected: "false" },
+      ],
+      starterCode: {
+        python: "def isValid(s):\n    # Your code here\n    pass",
+        javascript: "function isValid(s) {\n    // Your code here\n};",
+        java: "class Solution {\n    public boolean isValid(String s) {\n        // Your code here\n    }\n}",
+        cpp: "class Solution {\npublic:\n    bool isValid(string s) {\n        // Your code here\n    }\n};",
+      },
+    },
   ];
+
 
   const HARDCODED_SUBMISSIONS = [
     {
@@ -110,7 +136,32 @@ export const CodingProvider = ({ children }) => {
         { input: "[3,2,4]\n6", output: "[1,2]", passed: false },
       ],
     },
+    {
+      id: 3,
+      problemId: 2,
+      userId: 1,
+      code: "function reverseString(s) {\n    let left = 0, right = s.length - 1;\n    while (left < right) {\n        [s[left], s[right]] = [s[right], s[left]];\n        left++;\n        right--;\n    }\n};",
+      language: "javascript",
+      status: "Accepted",
+      runtime: 68,
+      memory: 13.2,
+      timestamp: "2023-05-16T08:00:00Z",
+      testCases: [
+        {
+          input: '["h","e","l","l","o"]',
+          output: '["o","l","l","e","h"]',
+          passed: true,
+        },
+      ],
+      analytics: {
+        runtimePercentile: 78,
+        memoryPercentile: 66,
+        timeComplexity: "O(n)",
+        spaceComplexity: "O(1)",
+      },
+    },
   ];
+
 
   const learningModules = [
     { id: 1, title: "Top Interview Questions", count: 145, icon: "📝" },
