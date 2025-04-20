@@ -75,20 +75,26 @@ src/ ├── components/ │ ├── CourseDashboard/ │ ├── CourseMo
 
 Here are some screenshots of the Connectify application:
 
+## Screenshots
+
+Here are some screenshots of the Connectify application:
+
 ### Login Page
-![Connectify Login Page](public/Screenshots/connectify-loginpage.png)
+![Connectify Login Page](frontend/public/Screenshots/connectify-loginpage.png)
 
 ### Landing Page
-![Connectify Landing Page](public/Screenshots/connectify-landingpage.png)
+![Connectify Landing Page](frontend/public/Screenshots/connectify-landingpage.png)
 
 ### Home Page
-![Connectify Home Page](public/Screenshots/connectifyHomepage.png)
+![Connectify Home Page](frontend/public/Screenshots/connectifyHomepage.png)
 
 ### Course Section
-![Connectify Course Section](public/Screenshots/connectifyhocoursesection.png)
+![Connectify Course Section](frontend/public/Screenshots/connectifyhocoursesection.png)
 
 ### Code Editor
-![Connectify Code Editor](public/Screenshots/connectifyocodeeditor.png)
+![Connectify Code Editor](frontend/public/Screenshots/connectifyocodeeditor.png)
 
 ### Dashboard
-![Dashboard](public/Screenshots/dashboard.png)
+![Dashboard](frontend/public/Screenshots/dashboard.png)
+
+
