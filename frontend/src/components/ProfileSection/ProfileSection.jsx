@@ -1,1077 +1,1013 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
+import "./ProfileSection.css";
 import {
+  FaUser,
+  FaCode,
+  FaBook,
+  FaCalendarAlt,
+  FaFileAlt,
+  FaFire,
+  FaEdit,
+  FaMedal,
+  FaChartLine,
+  FaClock,
+  FaRegBookmark,
+  FaClipboardCheck,
+  FaPalette,
+  FaProjectDiagram,
+  FaFileDownload,
+  FaThumbsUp,
+  FaBell,
   FaGithub,
   FaLinkedin,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaClock,
-  FaAward,
-  FaCog,
-  FaEdit,
-  FaUser,
-  FaBook,
-  FaCode,
-  FaCalendarAlt,
-  FaCertificate,
+  FaTwitter,
   FaTrophy,
-  FaFire,
-  FaChartLine,
-  FaQrcode,
-  FaLock,
-  FaTrash,
-  FaCheck,
   FaTimes,
-  FaChevronRight,
 } from "react-icons/fa";
-import { IoMdSchool } from "react-icons/io";
-import {
-  MdComputer,
-  MdSettings,
-  MdEmail,
-  MdVisibility,
-  MdMessage,
-} from "react-icons/md";
-import { GiAchievement, GiSkills } from "react-icons/gi";
-import { BsFillLightbulbFill, BsFillLightbulbOffFill } from "react-icons/bs";
 
 const ProfileSection = () => {
-  const [activeTab, setActiveTab] = useState("basic");
-  const [isEditing, setIsEditing] = useState(false);
-  const [editSection, setEditSection] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-  const [animateStats, setAnimateStats] = useState(false);
+  const [activeTab, setActiveTab] = useState("posts");
+  const [isEditingSkills, setIsEditingSkills] = useState(false);
+  const [currentSection, setCurrentSection] = useState("overview");
+  const [isLoading, setIsLoading] = useState(true);
+  const [skills, setSkills] = useState([]);
+  const [newSkill, setNewSkill] = useState("");
+  const [theme, setTheme] = useState("light");
+  const [showNotification, setShowNotification] = useState(false);
+  const [profileCompletion, setProfileCompletion] = useState(0);
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  const [userData, setUserData] = useState({
-    basic: {
-      profilePic: "https://via.placeholder.com/150",
-      fullName: "Alex Johnson",
-      username: "alex_codes",
-      bio: "Passionate developer focusing on React and Node.js. Always learning!",
-      gender: "Male",
-      dob: "1998-05-12",
-      location: "San Francisco, CA",
-      timezone: "PST (UTC-8)",
-    },
-    academic: {
-      university: "Stanford University",
-      degree: "B.S. Computer Science",
-      major: "Software Engineering",
-      year: "3rd Year",
-      enrollmentNo: "ST20210789",
-      email: "alex.j@stanford.edu",
-    },
-    skills: {
-      skillLevel: "Intermediate",
-      techStack: ["React", "Node.js", "MongoDB", "Express", "Python"],
-      interests: ["Machine Learning", "Web Development", "Cloud Computing"],
-      learningStyle: "Visual + Practical",
-      dailyCommitment: "3 hours",
-      streak: 42,
-      coursesCompleted: 15,
-      problemsSolved: 287,
-    },
-    social: {
-      github: "github.com/alexjcodes",
+  // Sample user data
+  const userData = {
+    name: "Alex Johnson",
+    username: "alexcode42",
+    bio: "Full-stack developer passionate about solving complex problems. Learning new technologies every day.",
+    college: "Stanford University",
+    socials: {
+      github: "github.com/alexcode42",
       linkedin: "linkedin.com/in/alexjohnson",
-      portfolio: "alexjohnson.dev",
+      twitter: "twitter.com/alexcode",
     },
-    achievements: {
-      certificates: [
-        "AWS Certified Developer",
-        "MongoDB Basics",
-        "React Mastery",
+    stats: {
+      problemsSolved: 327,
+      coursesDone: 12,
+      events: 8,
+      posts: 24,
+      streak: 42,
+    },
+    skills: [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Python",
+      "MongoDB",
+      "GraphQL",
+      "TypeScript",
+      "AWS",
+    ],
+    badges: [
+      {
+        name: "Problem Solver",
+        description: "Solved 300+ problems",
+        date: "2024-12-15",
+        icon: "medal",
+      },
+      {
+        name: "Streak Master",
+        description: "42-day streak",
+        date: "2025-03-20",
+        icon: "fire",
+      },
+      {
+        name: "Event Winner",
+        description: "1st place in Hackathon 2024",
+        date: "2024-11-10",
+        icon: "trophy",
+      },
+    ],
+    courses: [
+      {
+        title: "Advanced React Patterns",
+        progress: 85,
+        image: "https://via.placeholder.com/60",
+      },
+      {
+        title: "System Design Fundamentals",
+        progress: 62,
+        image: "https://via.placeholder.com/60",
+      },
+      {
+        title: "Data Structures Masterclass",
+        progress: 100,
+        image: "https://via.placeholder.com/60",
+      },
+    ],
+    problems: [
+      {
+        title: "Binary Tree Traversal",
+        difficulty: "Medium",
+        date: "2025-04-01",
+        time: "12:45",
+      },
+      {
+        title: "Dynamic Programming Basics",
+        difficulty: "Hard",
+        date: "2025-03-29",
+        time: "15:20",
+      },
+      {
+        title: "Array Manipulation",
+        difficulty: "Easy",
+        date: "2025-03-28",
+        time: "09:15",
+      },
+    ],
+    events: [
+      {
+        name: "Spring Hackathon 2025",
+        type: "Hackathon",
+        rank: "2nd",
+        date: "2025-03-15",
+        certificate: true,
+      },
+      {
+        name: "Code Challenge March",
+        type: "Contest",
+        rank: "5th",
+        date: "2025-03-08",
+        certificate: true,
+      },
+      {
+        name: "Tech Talk: AI Frontiers",
+        type: "Webinar",
+        rank: "Attendee",
+        date: "2025-02-22",
+        certificate: false,
+      },
+    ],
+    contributions: {
+      posts: [
+        {
+          title: "Understanding React Hooks",
+          likes: 45,
+          comments: 12,
+          date: "2025-03-20",
+        },
+        {
+          title: "Python vs JavaScript: A Comparison",
+          likes: 32,
+          comments: 8,
+          date: "2025-03-12",
+        },
       ],
-      codingStreak: "42 days",
-      challengesCompleted: 24,
-      rank: "Top 5% in University",
-      openSource: 7,
-      hackathons: 3,
+      comments: [
+        {
+          post: "Optimizing Database Queries",
+          comment:
+            "Great article! I would add that index optimization is crucial.",
+          date: "2025-03-25",
+        },
+        {
+          post: "Frontend Architecture Patterns",
+          comment:
+            "I've implemented the atomic design pattern with great results.",
+          date: "2025-03-18",
+        },
+      ],
+      discussions: [
+        {
+          title: "Future of WebAssembly",
+          participants: 8,
+          messages: 34,
+          date: "2025-03-22",
+        },
+        {
+          title: "Best Practices for Code Reviews",
+          participants: 12,
+          messages: 27,
+          date: "2025-03-15",
+        },
+      ],
     },
-    privacy: {
-      emailUpdates: true,
-      allowDiscoverability: true,
-      allowMessaging: true,
-      darkMode: false,
+    activity: [
+      { type: "problem", title: "Binary Tree Traversal", date: "2025-04-01" },
+      { type: "course", title: "Advanced React Patterns", date: "2025-03-30" },
+      { type: "event", title: "Spring Hackathon 2025", date: "2025-03-15" },
+    ],
+    analytics: {
+      codingTime: { Mon: 5, Tue: 3, Wed: 6, Thu: 4, Fri: 7, Sat: 8, Sun: 2 },
+      problemTypes: { Easy: 45, Medium: 35, Hard: 20 },
+      streakData: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
     },
-  });
+    bookmarks: [
+      { type: "problem", title: "Graph Algorithms", date: "2025-03-28" },
+      { type: "course", title: "Machine Learning Basics", date: "2025-03-25" },
+    ],
+    skillAssessments: [
+      { skill: "JavaScript", score: 92, percentile: 87 },
+      { skill: "React", score: 88, percentile: 82 },
+      { skill: "Data Structures", score: 79, percentile: 74 },
+    ],
+    projects: [
+      {
+        title: "Task Management App",
+        description:
+          "A full-stack task management application with drag-and-drop features",
+        tech: ["React", "Node.js", "MongoDB"],
+        repo: "github.com/alexcode42/task-manager",
+        demo: "taskmanager-demo.com",
+        image: "https://via.placeholder.com/300x200",
+      },
+      {
+        title: "Weather Forecast API",
+        description:
+          "RESTful API for weather forecasting with multiple data sources",
+        tech: ["Python", "Flask", "PostgreSQL"],
+        repo: "github.com/alexcode42/weather-api",
+        demo: "weather-api-demo.com",
+        image: "https://via.placeholder.com/300x200",
+      },
+    ],
+    endorsements: [
+      {
+        name: "Sarah Chen",
+        position: "Senior Developer at Tech Co",
+        text: "Alex is an exceptional problem solver and collaborator. Always delivers high-quality code.",
+        image: "https://via.placeholder.com/50",
+      },
+      {
+        name: "Michael Rodriguez",
+        position: "Project Lead at DevFirm",
+        text: "Great attention to detail and strong technical skills. A pleasure to work with!",
+        image: "https://via.placeholder.com/50",
+      },
+    ],
+    completionPercentage: 92,
+  };
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark-theme");
-    } else {
-      document.documentElement.classList.remove("dark-theme");
-    }
-  }, [darkMode]);
+    // Simulate loading data
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setSkills(userData.skills);
+      setProfileCompletion(userData.completionPercentage);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-    if (activeTab === "skills") {
-      setTimeout(() => setAnimateStats(true), 300);
-    } else {
-      setAnimateStats(false);
+    // Calculate profile completion when skills change
+    const baseCompletion = 70; // Base completion without skills
+    const skillCompletion = Math.min(
+      (skills.length / userData.skills.length) * 30,
+      30
+    );
+    setProfileCompletion(Math.round(baseCompletion + skillCompletion));
+  }, [skills]);
+
+  // Difficulty color mapping
+  const getDifficultyColor = (difficulty) => {
+    switch (difficulty) {
+      case "Easy":
+        return "ps-easy-difficulty";
+      case "Medium":
+        return "ps-medium-difficulty";
+      case "Hard":
+        return "ps-hard-difficulty";
+      default:
+        return "";
     }
-  }, [activeTab]);
-
-  const handleEdit = (section) => {
-    setIsEditing(true);
-    setEditSection(section);
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    setEditSection("");
+  const handleAddSkill = () => {
+    if (newSkill.trim() && !skills.includes(newSkill.trim())) {
+      setSkills([...skills, newSkill.trim()]);
+      setNewSkill("");
+    }
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setEditSection("");
+  const handleRemoveSkill = (skillToRemove) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove));
   };
 
-  const handleDarkModeToggle = () => {
-    setDarkMode(!darkMode);
-    setUserData((prev) => ({
-      ...prev,
-      privacy: { ...prev.privacy, darkMode: !darkMode },
-    }));
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const toggleNotifications = () => {
+    setShowNotification(!showNotification);
+  };
+
+  const generateResume = () => {
+    alert("Generating resume... This would typically download a PDF.");
+  };
+
+  const renderBadgeIcon = (iconName) => {
+    switch (iconName) {
+      case "medal":
+        return <FaMedal />;
+      case "fire":
+        return <FaFire />;
+      case "trophy":
+        return <FaTrophy />;
+      default:
+        return <FaMedal />;
+    }
+  };
+
+  const renderSectionContent = () => {
+    switch (currentSection) {
+      case "overview":
+        return (
+          <div className="ps-overview ps-animate-fade-in">
+            <div className="ps-stats-cards">
+              {[
+                {
+                  icon: <FaCode />,
+                  value: userData.stats.problemsSolved,
+                  label: "Problems Solved",
+                },
+                {
+                  icon: <FaBook />,
+                  value: userData.stats.coursesDone,
+                  label: "Courses Done",
+                },
+                {
+                  icon: <FaCalendarAlt />,
+                  value: userData.stats.events,
+                  label: "Events",
+                },
+                {
+                  icon: <FaFileAlt />,
+                  value: userData.stats.posts,
+                  label: "Posts",
+                },
+                {
+                  icon: <FaFire />,
+                  value: userData.stats.streak,
+                  label: "Day Streak",
+                },
+              ].map((stat, index) => (
+                <div key={index} className="ps-stat-card">
+                  <div className="ps-stat-icon">{stat.icon}</div>
+                  <div className="ps-stat-info">
+                    <h3>{stat.value}</h3>
+                    <p>{stat.label}</p>
+                    {stat.label === "Day Streak" && (
+                      <div className="ps-streak-bar"></div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="ps-badges-section">
+              <h2>Badges & Achievements</h2>
+              <div className="ps-badges-container">
+                {userData.badges.map((badge, index) => (
+                  <div
+                    key={index}
+                    className="ps-badge-item ps-animate-bounce-in"
+                    style={{ animationDelay: `${index * 0.2}s` }}
+                  >
+                    <div className="ps-badge-icon">
+                      {renderBadgeIcon(badge.icon)}
+                    </div>
+                    <div className="ps-badge-info">
+                      <h3>{badge.name}</h3>
+                      <p>{badge.description}</p>
+                      <small>
+                        Earned on {new Date(badge.date).toLocaleDateString()}
+                      </small>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="ps-learning-section">
+              <h2>Learning Progress</h2>
+              <div className="ps-courses-list">
+                {userData.courses.map((course, index) => (
+                  <div
+                    key={index}
+                    className="ps-course-item ps-animate-slide-in"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="ps-course-image"
+                    />
+                    <div className="ps-course-info">
+                      <h3>{course.title}</h3>
+                      <div className="ps-progress-container">
+                        <div
+                          className="ps-progress-bar"
+                          style={{ width: `${course.progress}%` }}
+                          data-progress={`${course.progress}%`}
+                        ></div>
+                      </div>
+                    </div>
+                    <button className="ps-continue-btn">Continue</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="ps-problems-section">
+              <h2>Recently Solved Problems</h2>
+              <table className="ps-problems-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Difficulty</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userData.problems.map((problem, index) => (
+                    <tr
+                      key={index}
+                      className="ps-animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <td>{problem.title}</td>
+                      <td>
+                        <span
+                          className={`ps-difficulty-badge ${getDifficultyColor(
+                            problem.difficulty
+                          )}`}
+                        >
+                          {problem.difficulty}
+                        </span>
+                      </td>
+                      <td>{problem.date}</td>
+                      <td>{problem.time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="ps-events-section">
+              <h2>Past Events</h2>
+              <div className="ps-events-grid">
+                {userData.events.map((event, index) => (
+                  <div
+                    key={index}
+                    className="ps-event-card ps-animate-scale-in"
+                    style={{ animationDelay: `${index * 0.2}s` }}
+                  >
+                    <h3>{event.name}</h3>
+                    <div className="ps-event-details">
+                      <p>
+                        <strong>Type:</strong> {event.type}
+                      </p>
+                      <p>
+                        <strong>Rank:</strong> {event.rank}
+                      </p>
+                      <p>
+                        <strong>Date:</strong> {event.date}
+                      </p>
+                      {event.certificate && (
+                        <span className="ps-certificate-badge">
+                          Certificate
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case "contributions":
+        return (
+          <div className="ps-contributions-section ps-animate-fade-in">
+            <div className="ps-contributions-tabs">
+              {["posts", "comments", "discussions"].map((tab) => (
+                <button
+                  key={tab}
+                  className={`ps-tab-btn ${
+                    activeTab === tab ? "ps-active" : ""
+                  }`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            <div className="ps-tab-content">
+              {activeTab === "posts" && (
+                <div className="ps-posts-list ps-animate-slide-in">
+                  {userData.contributions.posts.map((post, index) => (
+                    <div key={index} className="ps-post-item">
+                      <h3>{post.title}</h3>
+                      <div className="ps-post-stats">
+                        <span>
+                          <FaThumbsUp /> {post.likes}
+                        </span>
+                        <span>
+                          <FaClipboardCheck /> {post.comments}
+                        </span>
+                        <span>
+                          <FaCalendarAlt /> {post.date}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === "comments" && (
+                <div className="ps-comments-list ps-animate-slide-in">
+                  {userData.contributions.comments.map((comment, index) => (
+                    <div key={index} className="ps-comment-item">
+                      <h3>On: {comment.post}</h3>
+                      <p>"{comment.comment}"</p>
+                      <span className="ps-comment-date">
+                        <FaClock /> {comment.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === "discussions" && (
+                <div className="ps-discussions-list ps-animate-slide-in">
+                  {userData.contributions.discussions.map(
+                    (discussion, index) => (
+                      <div key={index} className="ps-discussion-item">
+                        <h3>{discussion.title}</h3>
+                        <div className="ps-discussion-stats">
+                          <span>
+                            <FaUser /> {discussion.participants}
+                          </span>
+                          <span>
+                            <FaFileAlt /> {discussion.messages}
+                          </span>
+                          <span>
+                            <FaCalendarAlt /> {discussion.date}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      case "advanced":
+        return (
+          <div className="ps-advanced-section ps-animate-fade-in">
+            <div className="ps-activity-timeline">
+              <h2>Activity Timeline</h2>
+              <div className="ps-timeline">
+                {userData.activity.map((item, index) => (
+                  <div
+                    key={index}
+                    className="ps-timeline-item ps-animate-slide-in"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <div className="ps-timeline-icon">
+                      {item.type === "problem" && <FaCode />}
+                      {item.type === "course" && <FaBook />}
+                      {item.type === "event" && <FaCalendarAlt />}
+                    </div>
+                    <div className="ps-timeline-content">
+                      <h3>{item.title}</h3>
+                      <p>
+                        {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                      </p>
+                      <span>
+                        <FaClock /> {item.date}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="ps-analytics-section">
+              <h2>Analytics</h2>
+              <div className="ps-analytics-cards">
+                <div className="ps-analytics-card ps-animate-fade-in">
+                  <h3>Coding Time This Week</h3>
+                  <div className="ps-chart-placeholder">
+                    <div className="ps-bar-chart">
+                      {Object.entries(userData.analytics.codingTime).map(
+                        ([day, hours], index) => (
+                          <div key={index} className="ps-chart-bar-container">
+                            <div
+                              className="ps-chart-bar"
+                              style={{ height: `${hours * 10}px` }}
+                              data-value={`${hours}h`}
+                            ></div>
+                            <span>{day}</span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="ps-analytics-card ps-animate-fade-in"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <h3>Problem Types Solved</h3>
+                  <div className="ps-chart-placeholder">
+                    <div className="ps-donut-chart">
+                      <div className="ps-donut-segment ps-easy"></div>
+                      <div className="ps-donut-segment ps-medium"></div>
+                      <div className="ps-donut-segment ps-hard"></div>
+                      <div className="ps-donut-hole">
+                        <div className="ps-total-count">
+                          {userData.stats.problemsSolved}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="ps-chart-legend">
+                      {Object.entries(userData.analytics.problemTypes).map(
+                        ([type, percent], idx) => (
+                          <div key={idx} className="ps-legend-item">
+                            <span
+                              className={`ps-legend-color ps-${type.toLowerCase()}`}
+                            ></span>
+                            <span>
+                              {type} ({percent}%)
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="ps-analytics-card ps-animate-fade-in"
+                  style={{ animationDelay: "0.4s" }}
+                >
+                  <h3>Streak Calendar</h3>
+                  <div className="ps-calendar-heatmap">
+                    {userData.analytics.streakData.map((day, index) => (
+                      <div
+                        key={index}
+                        className={`ps-calendar-day ${
+                          day ? "ps-active" : "ps-inactive"
+                        }`}
+                        title={day ? "Active" : "Inactive"}
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ps-bookmarks-section">
+              <h2>Your Bookmarks</h2>
+              <div className="ps-bookmarks-list">
+                {userData.bookmarks.map((bookmark, index) => (
+                  <div
+                    key={index}
+                    className="ps-bookmark-item ps-animate-slide-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="ps-bookmark-icon">
+                      {bookmark.type === "problem" && <FaCode />}
+                      {bookmark.type === "course" && <FaBook />}
+                    </div>
+                    <div className="ps-bookmark-info">
+                      <h3>{bookmark.title}</h3>
+                      <p>
+                        {bookmark.type.charAt(0).toUpperCase() +
+                          bookmark.type.slice(1)}
+                      </p>
+                      <span>
+                        <FaRegBookmark /> {bookmark.date}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="ps-skill-assessments">
+              <h2>Skill Assessments</h2>
+              <div className="ps-skills-list">
+                {userData.skillAssessments.map((assessment, index) => (
+                  <div
+                    key={index}
+                    className="ps-skill-assessment-item ps-animate-slide-in"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <h3>{assessment.skill}</h3>
+                    <div className="ps-assessment-details">
+                      <div className="ps-score">
+                        Score: {assessment.score}/100
+                      </div>
+                      <div className="ps-percentile-container">
+                        <div className="ps-percentile-label">
+                          Better than {assessment.percentile}% of users
+                        </div>
+                        <div className="ps-percentile-bar-container">
+                          <div
+                            className="ps-percentile-bar"
+                            style={{ width: `${assessment.percentile}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case "projects":
+        return (
+          <div className="ps-projects-section ps-animate-fade-in">
+            <h2>Project Showcase</h2>
+            <div className="ps-projects-grid">
+              {userData.projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="ps-project-card ps-animate-scale-in"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <div className="ps-project-image">
+                    <img src={project.image} alt={project.title} />
+                  </div>
+                  <div className="ps-project-content">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className="ps-project-tech">
+                      {project.tech.map((tech, techIndex) => (
+                        <span key={techIndex} className="ps-tech-tag">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="ps-project-links">
+                      <a
+                        href={`https://${project.repo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ps-project-link"
+                      >
+                        <FaGithub /> Repository
+                      </a>
+                      {project.demo && (
+                        <a
+                          href={`https://${project.demo}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ps-project-link"
+                        >
+                          <FaProjectDiagram /> Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "endorsements":
+        return (
+          <div className="ps-endorsements-section ps-animate-fade-in">
+            <h2>Peer Endorsements</h2>
+            <div className="ps-endorsements-list">
+              {userData.endorsements.map((endorsement, index) => (
+                <div
+                  key={index}
+                  className="ps-endorsement-card ps-animate-slide-in"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <div className="ps-endorser-image">
+                    <img src={endorsement.image} alt={endorsement.name} />
+                  </div>
+                  <div className="ps-endorsement-content">
+                    <h3>{endorsement.name}</h3>
+                    <p className="ps-endorser-position">
+                      {endorsement.position}
+                    </p>
+                    <p className="ps-endorsement-text">"{endorsement.text}"</p>
+                    <div className="ps-endorsement-actions">
+                      <button className="ps-like-btn">
+                        <FaThumbsUp /> Like
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <button className="ps-request-endorsement-btn">
+                Request Endorsement
+              </button>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <ProfileContainer className={darkMode ? "dark-theme" : ""}>
-      <ProfileHeader>
-        <ProfilePic
-          src={userData.basic.profilePic}
-          alt={userData.basic.fullName}
-        />
-        <HeaderInfo>
-          <NameSection>
-            <h1>{userData.basic.fullName}</h1>
-            <Username>@{userData.basic.username}</Username>
-          </NameSection>
-          <HeaderMeta>
-            <MetaItem>
-              <FaMapMarkerAlt size={14} />
-              <span>{userData.basic.location}</span>
-            </MetaItem>
-            <MetaItem>
-              <FaClock size={14} />
-              <span>{userData.basic.timezone}</span>
-            </MetaItem>
-          </HeaderMeta>
-          <BioText>{userData.basic.bio}</BioText>
-          <SocialLinks>
-            <SocialLink
-              href={`https://${userData.social.github}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaGithub size={18} />
-            </SocialLink>
-            <SocialLink
-              href={`https://${userData.social.linkedin}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedin size={18} />
-            </SocialLink>
-            <SocialLink href={`mailto:${userData.academic.email}`}>
-              <FaEnvelope size={18} />
-            </SocialLink>
-          </SocialLinks>
-        </HeaderInfo>
-        <DarkModeToggle onClick={handleDarkModeToggle}>
-          {darkMode ? (
-            <BsFillLightbulbFill size={20} />
-          ) : (
-            <BsFillLightbulbOffFill size={20} />
-          )}
-        </DarkModeToggle>
-      </ProfileHeader>
+    <div className={`ps-container ps-${theme}-theme`}>
+      {isLoading ? (
+        <div className="ps-loading-screen">
+          <div className="ps-spinner"></div>
+          <p>Loading profile...</p>
+        </div>
+      ) : (
+        <>
+          <div className="ps-profile-header">
+            <div className="ps-profile-completion">
+              <div
+                className="ps-completion-bar"
+                style={{ width: `${profileCompletion}%` }}
+              ></div>
+              <span className="ps-completion-text">
+                {profileCompletion}% Profile Complete
+              </span>
+            </div>
 
-      <TabContainer>
-        <TabButton
-          active={activeTab === "basic"}
-          onClick={() => setActiveTab("basic")}
-        >
-          <FaUser size={14} />
-          <span>Basic Info</span>
-        </TabButton>
-        <TabButton
-          active={activeTab === "academic"}
-          onClick={() => setActiveTab("academic")}
-        >
-          <IoMdSchool size={14} />
-          <span>Academic</span>
-        </TabButton>
-        <TabButton
-          active={activeTab === "skills"}
-          onClick={() => setActiveTab("skills")}
-        >
-          <GiSkills size={14} />
-          <span>Skills</span>
-        </TabButton>
-        <TabButton
-          active={activeTab === "achievements"}
-          onClick={() => setActiveTab("achievements")}
-        >
-          <GiAchievement size={14} />
-          <span>Achievements</span>
-        </TabButton>
-        <TabButton
-          active={activeTab === "privacy"}
-          onClick={() => setActiveTab("privacy")}
-        >
-          <MdSettings size={14} />
-          <span>Settings</span>
-        </TabButton>
-      </TabContainer>
+            <div className="ps-profile-banner">
+              <div className="ps-user-basic-info ps-animate-fade-in">
+                <div className="ps-user-avatar">
+                  <FaUser className="ps-avatar-placeholder" />
+                </div>
+                <div className="ps-user-details">
+                  <h1>{userData.name}</h1>
+                  <h2>@{userData.username}</h2>
+                  <p>{userData.bio}</p>
+                  <p className="ps-college-info">{userData.college}</p>
 
-      <TabContent>
-        {activeTab === "basic" && (
-          <SectionCard>
-            <SectionHeader>
-              <h2>Basic Information</h2>
-              <EditButton onClick={() => handleEdit("basic")}>
-                <FaEdit size={14} />
-                Edit
-              </EditButton>
-            </SectionHeader>
-            {isEditing && editSection === "basic" ? (
-              <EditForm>
-                <FormGroup>
-                  <label>Full Name</label>
-                  <input
-                    type="text"
-                    value={userData.basic.fullName}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, fullName: e.target.value },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Username</label>
-                  <input
-                    type="text"
-                    value={userData.basic.username}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, username: e.target.value },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Bio</label>
-                  <textarea
-                    value={userData.basic.bio}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, bio: e.target.value },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Gender</label>
-                  <select
-                    value={userData.basic.gender}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, gender: e.target.value },
-                      })
-                    }
+                  <div className="ps-socials">
+                    <a
+                      href={`https://${userData.socials.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaGithub /> {userData.socials.github}
+                    </a>
+                    <a
+                      href={`https://${userData.socials.linkedin}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaLinkedin /> {userData.socials.linkedin}
+                    </a>
+                    <a
+                      href={`https://${userData.socials.twitter}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaTwitter /> {userData.socials.twitter}
+                    </a>
+                  </div>
+
+                  <button
+                    className="ps-edit-profile-btn"
+                    onClick={() => setShowEditModal(true)}
                   >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Non-binary">Non-binary</option>
-                    <option value="Prefer not to say">Prefer not to say</option>
-                  </select>
-                </FormGroup>
-                <FormGroup>
-                  <label>Date of Birth</label>
-                  <input
-                    type="date"
-                    value={userData.basic.dob}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, dob: e.target.value },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Location</label>
-                  <input
-                    type="text"
-                    value={userData.basic.location}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        basic: { ...userData.basic, location: e.target.value },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <ButtonGroup>
-                  <SaveButton onClick={handleSave}>
-                    <FaCheck size={14} /> Save Changes
-                  </SaveButton>
-                  <CancelButton onClick={handleCancelEdit}>
-                    <FaTimes size={14} /> Cancel
-                  </CancelButton>
-                </ButtonGroup>
-              </EditForm>
-            ) : (
-              <InfoGrid>
-                <InfoItem>
-                  <InfoLabel>Full Name</InfoLabel>
-                  <InfoValue>{userData.basic.fullName}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Username</InfoLabel>
-                  <InfoValue>@{userData.basic.username}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Gender</InfoLabel>
-                  <InfoValue>{userData.basic.gender}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Date of Birth</InfoLabel>
-                  <InfoValue>
-                    {new Date(userData.basic.dob).toLocaleDateString()}
-                  </InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Location</InfoLabel>
-                  <InfoValue>{userData.basic.location}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Time Zone</InfoLabel>
-                  <InfoValue>{userData.basic.timezone}</InfoValue>
-                </InfoItem>
-              </InfoGrid>
-            )}
-          </SectionCard>
-        )}
+                    <FaEdit /> Edit Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {activeTab === "academic" && (
-          <SectionCard>
-            <SectionHeader>
-              <h2>Academic Details</h2>
-              <EditButton onClick={() => handleEdit("academic")}>
-                <FaEdit size={14} />
-                Edit
-              </EditButton>
-            </SectionHeader>
-            {isEditing && editSection === "academic" ? (
-              <EditForm>
-                <FormGroup>
-                  <label>University/College</label>
-                  <input
-                    type="text"
-                    value={userData.academic.university}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          university: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Degree</label>
-                  <input
-                    type="text"
-                    value={userData.academic.degree}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          degree: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Major</label>
-                  <input
-                    type="text"
-                    value={userData.academic.major}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          major: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Year of Study</label>
-                  <input
-                    type="text"
-                    value={userData.academic.year}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          year: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Enrollment Number</label>
-                  <input
-                    type="text"
-                    value={userData.academic.enrollmentNo}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          enrollmentNo: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>College Email ID</label>
-                  <input
-                    type="email"
-                    value={userData.academic.email}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        academic: {
-                          ...userData.academic,
-                          email: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <ButtonGroup>
-                  <SaveButton onClick={handleSave}>
-                    <FaCheck size={14} /> Save Changes
-                  </SaveButton>
-                  <CancelButton onClick={handleCancelEdit}>
-                    <FaTimes size={14} /> Cancel
-                  </CancelButton>
-                </ButtonGroup>
-              </EditForm>
-            ) : (
-              <InfoGrid>
-                <InfoItem>
-                  <InfoLabel>University/College</InfoLabel>
-                  <InfoValue>{userData.academic.university}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Degree Program</InfoLabel>
-                  <InfoValue>{userData.academic.degree}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Major/Branch</InfoLabel>
-                  <InfoValue>{userData.academic.major}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Year of Study</InfoLabel>
-                  <InfoValue>{userData.academic.year}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>Enrollment Number</InfoLabel>
-                  <InfoValue>{userData.academic.enrollmentNo}</InfoValue>
-                </InfoItem>
-                <InfoItem>
-                  <InfoLabel>College Email</InfoLabel>
-                  <InfoValue>{userData.academic.email}</InfoValue>
-                </InfoItem>
-              </InfoGrid>
-            )}
-          </SectionCard>
-        )}
+          <div className="ps-skills-container">
+            <div className="ps-skills-header">
+              <h2>Skills</h2>
+              <button
+                className="ps-toggle-edit-skills"
+                onClick={() => setIsEditingSkills(!isEditingSkills)}
+              >
+                {isEditingSkills ? "Save Skills" : "Edit Skills"}
+              </button>
+            </div>
 
-        {activeTab === "skills" && (
-          <SectionCard>
-            <SectionHeader>
-              <h2>Skills & Learning</h2>
-              <EditButton onClick={() => handleEdit("skills")}>
-                <FaEdit size={14} />
-                Edit
-              </EditButton>
-            </SectionHeader>
-            {isEditing && editSection === "skills" ? (
-              <EditForm>
-                <FormGroup>
-                  <label>Self-Rated Skill Level</label>
-                  <select
-                    value={userData.skills.skillLevel}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        skills: {
-                          ...userData.skills,
-                          skillLevel: e.target.value,
-                        },
-                      })
-                    }
+            <div className="ps-skills-tags">
+              {skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className={`ps-skill-tag ${
+                    isEditingSkills ? "ps-editable" : ""
+                  } ps-animate-scale-in`}
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  {skill}
+                  {isEditingSkills && (
+                    <span
+                      className="ps-remove-skill"
+                      onClick={() => handleRemoveSkill(skill)}
+                    >
+                      <FaTimes />
+                    </span>
+                  )}
+                </div>
+              ))}
+              {isEditingSkills && (
+                <div className="ps-add-skill-container">
+                  <input
+                    type="text"
+                    className="ps-add-skill-input"
+                    value={newSkill}
+                    onChange={(e) => setNewSkill(e.target.value)}
+                    placeholder="Add new skill"
+                    onKeyPress={(e) => e.key === "Enter" && handleAddSkill()}
+                  />
+                  <button
+                    className="ps-add-skill-btn"
+                    onClick={handleAddSkill}
+                    disabled={!newSkill.trim()}
                   >
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                    <option value="Expert">Expert</option>
-                  </select>
-                </FormGroup>
-                <FormGroup>
-                  <label>Tech Stack (comma separated)</label>
-                  <input
-                    type="text"
-                    value={userData.skills.techStack.join(", ")}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        skills: {
-                          ...userData.skills,
-                          techStack: e.target.value.split(", ").filter(Boolean),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Learning Interests (comma separated)</label>
-                  <input
-                    type="text"
-                    value={userData.skills.interests.join(", ")}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        skills: {
-                          ...userData.skills,
-                          interests: e.target.value.split(", ").filter(Boolean),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Learning Style</label>
-                  <input
-                    type="text"
-                    value={userData.skills.learningStyle}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        skills: {
-                          ...userData.skills,
-                          learningStyle: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Daily Commitment</label>
-                  <input
-                    type="text"
-                    value={userData.skills.dailyCommitment}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        skills: {
-                          ...userData.skills,
-                          dailyCommitment: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <ButtonGroup>
-                  <SaveButton onClick={handleSave}>
-                    <FaCheck size={14} /> Save Changes
-                  </SaveButton>
-                  <CancelButton onClick={handleCancelEdit}>
-                    <FaTimes size={14} /> Cancel
-                  </CancelButton>
-                </ButtonGroup>
-              </EditForm>
-            ) : (
-              <>
-                <InfoGrid>
-                  <InfoItem>
-                    <InfoLabel>Self-Rated Skill Level</InfoLabel>
-                    <InfoValue>{userData.skills.skillLevel}</InfoValue>
-                  </InfoItem>
-                  <InfoItem>
-                    <InfoLabel>Daily Learning Commitment</InfoLabel>
-                    <InfoValue>{userData.skills.dailyCommitment}</InfoValue>
-                  </InfoItem>
-                  <InfoItem>
-                    <InfoLabel>Preferred Learning Style</InfoLabel>
-                    <InfoValue>{userData.skills.learningStyle}</InfoValue>
-                  </InfoItem>
-                </InfoGrid>
+                    Add
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          
 
-                <SkillsSection>
-                  <h3>Tech Stack</h3>
-                  <TagsContainer>
-                    {userData.skills.techStack.map((tech, index) => (
-                      <Tag key={`tech-${index}`}>
-                        <MdComputer size={14} /> {tech}
-                      </Tag>
-                    ))}
-                  </TagsContainer>
-                </SkillsSection>
+          <div className="ps-profile-navigation">
+            {[
+              { id: "overview", label: "Overview" },
+              { id: "contributions", label: "Contributions" },
+              { id: "advanced", label: "Analytics" },
+              { id: "projects", label: "Projects" },
+              { id: "endorsements", label: "Endorsements" },
+            ].map((navItem) => (
+              <button
+                key={navItem.id}
+                className={`ps-nav-btn ${
+                  currentSection === navItem.id ? "ps-active" : ""
+                }`}
+                onClick={() => setCurrentSection(navItem.id)}
+              >
+                {navItem.label}
+              </button>
+            ))}
+          </div>
 
-                <SkillsSection>
-                  <h3>Learning Interests</h3>
-                  <TagsContainer>
-                    {userData.skills.interests.map((interest, index) => (
-                      <Tag key={`interest-${index}`} variant="secondary">
-                        <BsFillLightbulbFill size={14} /> {interest}
-                      </Tag>
-                    ))}
-                  </TagsContainer>
-                </SkillsSection>
+          <div className="ps-profile-content">{renderSectionContent()}</div>
 
-                <StatisticsSection>
-                  <h3>Progress & Statistics</h3>
-                  <StatsGrid>
-                    <StatCard animate={animateStats}>
-                      <StatIcon>
-                        <FaFire size={20} />
-                      </StatIcon>
-                      <StatNumber>{userData.skills.streak}</StatNumber>
-                      <StatLabel>Day Streak</StatLabel>
-                      <ProgressBar
-                        width={
-                          userData.skills.streak > 100
-                            ? 100
-                            : userData.skills.streak
-                        }
-                      />
-                    </StatCard>
-                    <StatCard animate={animateStats} delay="0.2s">
-                      <StatIcon>
-                        <FaBook size={20} />
-                      </StatIcon>
-                      <StatNumber>
-                        {userData.skills.coursesCompleted}
-                      </StatNumber>
-                      <StatLabel>Courses Completed</StatLabel>
-                      <ProgressBar
-                        width={(userData.skills.coursesCompleted / 20) * 100}
-                      />
-                    </StatCard>
-                    <StatCard animate={animateStats} delay="0.4s">
-                      <StatIcon>
-                        <FaCode size={20} />
-                      </StatIcon>
-                      <StatNumber>{userData.skills.problemsSolved}</StatNumber>
-                      <StatLabel>Problems Solved</StatLabel>
-                      <ProgressBar
-                        width={(userData.skills.problemsSolved / 500) * 100}
-                      />
-                    </StatCard>
-                  </StatsGrid>
-                </StatisticsSection>
-              </>
-            )}
-          </SectionCard>
-        )}
-
-        {activeTab === "achievements" && (
-          <SectionCard>
-            <SectionHeader>
-              <h2>Achievements & Contributions</h2>
-              <EditButton onClick={() => handleEdit("achievements")}>
-                <FaEdit size={14} />
-                Edit
-              </EditButton>
-            </SectionHeader>
-            {isEditing && editSection === "achievements" ? (
-              <EditForm>
-                <FormGroup>
-                  <label>Certificates (comma separated)</label>
-                  <textarea
-                    value={userData.achievements.certificates.join(", ")}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          certificates: e.target.value
-                            .split(", ")
-                            .filter(Boolean),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Current Coding Streak</label>
-                  <input
-                    type="text"
-                    value={userData.achievements.codingStreak}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          codingStreak: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Challenges Completed</label>
-                  <input
-                    type="number"
-                    value={userData.achievements.challengesCompleted}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          challengesCompleted: Number(e.target.value),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Current Rank</label>
-                  <input
-                    type="text"
-                    value={userData.achievements.rank}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          rank: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Open Source Contributions</label>
-                  <input
-                    type="number"
-                    value={userData.achievements.openSource}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          openSource: Number(e.target.value),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>Hackathons Participated</label>
-                  <input
-                    type="number"
-                    value={userData.achievements.hackathons}
-                    onChange={(e) =>
-                      setUserData({
-                        ...userData,
-                        achievements: {
-                          ...userData.achievements,
-                          hackathons: Number(e.target.value),
-                        },
-                      })
-                    }
-                  />
-                </FormGroup>
-                <ButtonGroup>
-                  <SaveButton onClick={handleSave}>
-                    <FaCheck size={14} /> Save Changes
-                  </SaveButton>
-                  <CancelButton onClick={handleCancelEdit}>
-                    <FaTimes size={14} /> Cancel
-                  </CancelButton>
-                </ButtonGroup>
-              </EditForm>
-            ) : (
-              <>
-                <AchievementGrid>
-                  <AchievementCard>
-                    <AchievementIcon>
-                      <FaFire size={24} />
-                    </AchievementIcon>
-                    <AchievementTitle>Coding Streak</AchievementTitle>
-                    <AchievementValue>
-                      {userData.achievements.codingStreak}
-                    </AchievementValue>
-                  </AchievementCard>
-                  <AchievementCard>
-                    <AchievementIcon>
-                      <FaAward size={24} />
-                    </AchievementIcon>
-                    <AchievementTitle>Challenges Completed</AchievementTitle>
-                    <AchievementValue>
-                      {userData.achievements.challengesCompleted}
-                    </AchievementValue>
-                  </AchievementCard>
-                  <AchievementCard>
-                    <AchievementIcon>
-                      <FaChartLine size={24} />
-                    </AchievementIcon>
-                    <AchievementTitle>Current Rank</AchievementTitle>
-                    <AchievementValue>
-                      {userData.achievements.rank}
-                    </AchievementValue>
-                  </AchievementCard>
-                  <AchievementCard>
-                    <AchievementIcon>
-                      <FaCode size={24} />
-                    </AchievementIcon>
-                    <AchievementTitle>Open Source</AchievementTitle>
-                    <AchievementValue>
-                      {userData.achievements.openSource} Contributions
-                    </AchievementValue>
-                  </AchievementCard>
-                  <AchievementCard>
-                    <AchievementIcon>
-                      <FaTrophy size={24} />
-                    </AchievementIcon>
-                    <AchievementTitle>Hackathons</AchievementTitle>
-                    <AchievementValue>
-                      {userData.achievements.hackathons} Participated
-                    </AchievementValue>
-                  </AchievementCard>
-                </AchievementGrid>
-
-                <CertificateSection>
-                  <h3>Certificates</h3>
-                  <CertificateList>
-                    {userData.achievements.certificates.map((cert, index) => (
-                      <CertificateItem key={`cert-${index}`}>
-                        <FaCertificate size={16} />
-                        <span>{cert}</span>
-                        <FaChevronRight size={12} className="cert-arrow" />
-                      </CertificateItem>
-                    ))}
-                  </CertificateList>
-                </CertificateSection>
-              </>
-            )}
-          </SectionCard>
-        )}
-
-        {activeTab === "privacy" && (
-          <SectionCard>
-            <SectionHeader>
-              <h2>Privacy & Preferences</h2>
-              <EditButton onClick={() => handleEdit("privacy")}>
-                <FaEdit size={14} />
-                Edit
-              </EditButton>
-            </SectionHeader>
-            {isEditing && editSection === "privacy" ? (
-              <EditForm>
-                <FormGroup>
-                  <label>Email Updates</label>
-                  <SwitchContainer>
-                    <Switch
-                      type="checkbox"
-                      checked={userData.privacy.emailUpdates}
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          privacy: {
-                            ...userData.privacy,
-                            emailUpdates: e.target.checked,
-                          },
-                        })
-                      }
-                    />
-                    <SwitchLabel>
-                      <MdEmail size={16} /> Receive email updates and
-                      newsletters
-                    </SwitchLabel>
-                  </SwitchContainer>
-                </FormGroup>
-                <FormGroup>
-                  <label>Discoverability</label>
-                  <SwitchContainer>
-                    <Switch
-                      type="checkbox"
-                      checked={userData.privacy.allowDiscoverability}
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          privacy: {
-                            ...userData.privacy,
-                            allowDiscoverability: e.target.checked,
-                          },
-                        })
-                      }
-                    />
-                    <SwitchLabel>
-                      <MdVisibility size={16} /> Allow others to discover your
-                      profile
-                    </SwitchLabel>
-                  </SwitchContainer>
-                </FormGroup>
-                <FormGroup>
-                  <label>Messaging</label>
-                  <SwitchContainer>
-                    <Switch
-                      type="checkbox"
-                      checked={userData.privacy.allowMessaging}
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          privacy: {
-                            ...userData.privacy,
-                            allowMessaging: e.target.checked,
-                          },
-                        })
-                      }
-                    />
-                    <SwitchLabel>
-                      <MdMessage size={16} /> Allow others to message or connect
-                      with you
-                    </SwitchLabel>
-                  </SwitchContainer>
-                </FormGroup>
-                <ButtonGroup>
-                  <SaveButton onClick={handleSave}>
-                    <FaCheck size={14} /> Save Changes
-                  </SaveButton>
-                  <CancelButton onClick={handleCancelEdit}>
-                    <FaTimes size={14} /> Cancel
-                  </CancelButton>
-                </ButtonGroup>
-              </EditForm>
-            ) : (
-              <>
-                <SettingsGrid>
-                  <SettingsCard>
-                    <SettingsIcon>
-                      <MdEmail size={24} />
-                    </SettingsIcon>
-                    <SettingsTitle>Email Updates</SettingsTitle>
-                    <SettingsValue>
-                      {userData.privacy.emailUpdates ? "Enabled" : "Disabled"}
-                    </SettingsValue>
-                  </SettingsCard>
-                  <SettingsCard>
-                    <SettingsIcon>
-                      <MdVisibility size={24} />
-                    </SettingsIcon>
-                    <SettingsTitle>Discoverability</SettingsTitle>
-                    <SettingsValue>
-                      {userData.privacy.allowDiscoverability
-                        ? "Enabled"
-                        : "Disabled"}
-                    </SettingsValue>
-                  </SettingsCard>
-                  <SettingsCard>
-                    <SettingsIcon>
-                      <MdMessage size={24} />
-                    </SettingsIcon>
-                    <SettingsTitle>Allow Messaging</SettingsTitle>
-                    <SettingsValue>
-                      {userData.privacy.allowMessaging ? "Enabled" : "Disabled"}
-                    </SettingsValue>
-                  </SettingsCard>
-                  <SettingsCard>
-                    <SettingsIcon>
-                      {darkMode ? (
-                        <BsFillLightbulbFill size={24} />
-                      ) : (
-                        <BsFillLightbulbOffFill size={24} />
-                      )}
-                    </SettingsIcon>
-                    <SettingsTitle>Dark Mode</SettingsTitle>
-                    <SettingsValue>
-                      {darkMode ? "Enabled" : "Disabled"}
-                    </SettingsValue>
-                  </SettingsCard>
-                </SettingsGrid>
-
-                <AccountActions>
-                  <h3>Account Management</h3>
-                  <ActionButtons>
-                    <ActionButton color="#f5a623">
-                      <FaLock size={14} /> Change Password
-                    </ActionButton>
-                    <ActionButton color="#d0021b">
-                      <FaTrash size={14} /> Deactivate Account
-                    </ActionButton>
-                  </ActionButtons>
-                </AccountActions>
-              </>
-            )}
-          </SectionCard>
-        )}
-      </TabContent>
-
-      <ProfileFooter>
-        <FooterQrCode>
-          <FaQrcode size={40} />
-          <span>Scan to view profile</span>
-        </FooterQrCode>
-        <FooterStats>
-          <FooterStatItem>
-            <span>Last updated:</span>
-            <strong>Today at {new Date().toLocaleTimeString()}</strong>
-          </FooterStatItem>
-          <FooterStatItem>
-            <span>Member since:</span>
-            <strong>March 2021</strong>
-          </FooterStatItem>
-        </FooterStats>
-      </ProfileFooter>
-    </ProfileContainer>
+          <div className="ps-floating-actions">
+            <button
+              className="ps-action-btn ps-resume-btn"
+              onClick={generateResume}
+            >
+              <FaFileDownload />
+              <span className="ps-action-tooltip">Generate Resume</span>
+            </button>
+            <button
+              className="ps-action-btn ps-theme-btn"
+              onClick={toggleTheme}
+            >
+              <FaPalette />
+              <span className="ps-action-tooltip">
+                {theme === "light" ? "Dark Mode" : "Light Mode"}
+              </span>
+            </button>
+            <button
+              className="ps-action-btn ps-notifications-btn"
+              onClick={toggleNotifications}
+            >
+              <FaBell />
+              <span className="ps-action-tooltip">Notifications</span>
+              {showNotification && (
+                <div className="ps-notification-dropdown">
+                  <div className="ps-notification-header">
+                    <h3>Notifications</h3>
+                    <button
+                      className="ps-close-notifications"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowNotification(false);
+                      }}
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+                  <div className="ps-notification-content">
+                    <p>No new notifications</p>
+                  </div>
+                </div>
+              )}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
-
-// Keyframe Animations
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
-
-const scaleIn = keyframes`
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-`;
-
-const slideIn = keyframes`
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-`;
-
-const progressAnimation = keyframes`
-  from { width: 0; }
-  to { width: 100%; }
-`;
-
-// Styled Components (remain the same as before, just updating the icon-related parts)
-// ... [All the styled components remain exactly the same as in your original code]
 
 export default ProfileSection;

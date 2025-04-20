@@ -27,6 +27,7 @@
     /* min-height: 100vh; */
     background-color: transparent;
     padding: 1rem;
+    color: black;
 }
 
 .auth-wrapper {

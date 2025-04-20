@@ -47,6 +47,8 @@ const StartAPost = () => {
   const [activeTool, setActiveTool] = useState(null);
   const [charCount, setCharCount] = useState(0);
   const [isPosting, setIsPosting] = useState(false);
+    const [posts, setPosts] = useState([]); // State to store all posts
+ 
   const [eventDetails, setEventDetails] = useState({
     title: "",
     date: "",
@@ -254,15 +256,28 @@ const StartAPost = () => {
 
     setIsPosting(true);
 
+    // Create new post object
+    const newPost = {
+      id: Date.now(),
+      text: postText,
+      audience,
+      attachments: [...attachments],
+      event: eventDetails.title ? { ...eventDetails } : null,
+      celebration: celebrationDetails.occasion
+        ? { ...celebrationDetails }
+        : null,
+      timestamp: new Date().toISOString(),
+      author: {
+        name: "Umesh Prasad",
+        avatar: "./profile.png",
+      },
+    };
+
     // Simulate API call
     setTimeout(() => {
-      console.log("Posted:", {
-        text: postText,
-        audience,
-        attachments,
-        event: eventDetails,
-        celebration: celebrationDetails,
-      });
+      // Add the new post to the posts array
+      setPosts((prevPosts) => [newPost, ...prevPosts]);
+
       // Reset form after posting
       setPostText("");
       setAttachments([]);
@@ -270,6 +285,10 @@ const StartAPost = () => {
       setEventDetails({ title: "", date: "", time: "", location: "" });
       setCelebrationDetails({ occasion: "", date: "", message: "" });
       setIsPosting(false);
+      setIsModalOpen(false);
+
+      console.log("New post added:", newPost);
+      console.log("All posts:", [...posts, newPost]);
     }, 1500);
   };
 

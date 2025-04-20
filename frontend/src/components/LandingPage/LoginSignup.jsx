@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./LoginSignup.css";
+import { color } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState("student");
   const [rememberMe, setRememberMe] = useState(false);
   const [animating, setAnimating] = useState(false);
+  const navigate = useNavigate();
 
   const quotes = {
     login: {
@@ -27,14 +30,61 @@ const LoginSignup = () => {
     }, 400);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      isLogin,
-      userType,
-      rememberMe,
-    });
+
+    const form = e.target;
+    const fullName = !isLogin ? form[0].value : null; // Only for signup
+    const email = form[isLogin ? 0 : 1].value;
+    const password = form[isLogin ? 1 : 2].value;
+    const confirmPassword = !isLogin ? form[3].value : null;
+
+    const apiUrl = `http://localhost:5000/api/auth/${
+      isLogin ? "login" : "signup"
+    }`;
+
+    const payload = isLogin
+      ? { email, password }
+      : {
+          fullName,
+          email,
+          password,
+          confirmPassword,
+          userType, // e.g., student, employer, admin
+        };
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle success
+        console.log("Success:", data);
+         
+        alert(
+          data.message || (isLogin ? "Login successful" : "Signup successful")
+        ); 
+        localStorage.setItem("token", data.token);
+      navigate("/home");
+        // You can redirect or store token here
+      } else {
+        // Handle error
+        console.error("Error:", data);
+        alert(data.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("Server error. Try again later.");
+    }
   };
+
 
   // Social icons components remain the same
   const GoogleIcon = () => (
@@ -152,7 +202,7 @@ const LoginSignup = () => {
                 </div>
 
                 {!isLogin && (
-                  <div className="auth-input-group">
+                  <div  className="auth-input-group">
                     <span className="auth-input-icon">🔒</span>
                     <input
                       type="password"
